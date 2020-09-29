@@ -1,0 +1,60 @@
+{
+    "prop0": {
+        "id": "0FFZQUBHGEkKdmzTE2op",
+        "data": {
+            "productNameHindi": "पोलो",
+            "company": "Syngenta",
+            "varients": [
+                {
+                    "discountPrice": "800",
+                    "varientName": "250 gm",
+                    "priceOriginal": "1000",
+                    "varientQty": "10"
+                },
+                {
+                    "priceOriginal": "2000",
+                    "varientQty": "50",
+                    "varientName": "500 gm",
+                    "discountPrice": "1500"
+                },
+                {
+                    "varientName": "1 kg",
+                    "varientQty": "40",
+                    "priceOriginal": "3500",
+                    "discountPrice": "2800"
+                },
+                {
+                    "discountPrice": "400",
+                    "varientName": "100 gm",
+                    "varientQty": "50",
+                    "priceOriginal": "500"
+                }
+            ],
+            "productDescription": "पैकेट पर उपयोग के लिए निर्देश पढ़ें |",
+            "productName": "Polo",
+            "category": "Insecticide",
+            "sold": 0,
+            "productURL": "https://firebasestorage.googleapis.com/v0/b/apnakisan-cfe53.appspot.com/o/images%2FInsecticide_Syngenta_Polo.jpg?alt=media&token=692ec39c-d4f6-4d23-98bb-b3ea357a4c8d"
+        }
+    },
+    "prop1": {
+        "id": "0pLHJsJiGKW2UT6zretn",
+        "data": {
+            "productDescription": "श्रीराम मैग्नीशियम सल्फेट\n\nMgSO4 (9.6% Mg, 12% S)\n\n25 किग्रा\n\n9.6% मिलीग्राम\n12% एस",
+            "productName": "Magnesium Sulphate",
+            "varients": [
+                {
+                    "priceOriginal": "1000",
+                    "discountPrice": "800",
+                    "varientQty": "0",
+                    "varientName": "25 Kg"
+                }
+            ],
+            "productNameHindi": "मैग्नीशियम सलफेट",
+            "category": "Fertilizer",
+            "sold": 0,
+            "productURL": "https://firebasestorage.googleapis.com/v0/b/apnakisan-cfe53.appspot.com/o/images%2FFertilizer_Shriram_Magnesium%20Sulphate.jpg?alt=media&token=136e3046-1509-4258-bfa5-fdb33977f036",
+            "company": "Shriram"
+        }
+    }
+}
