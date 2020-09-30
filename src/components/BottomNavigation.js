@@ -17,22 +17,16 @@ const useStyles = makeStyles({
     }
 });
 
-const LabelBottomNavigation = ({ fragmentName }) => {
+const LabelBottomNavigation = () => {
     // object destructuring for getting fragment name function
     // pass fragment name as props. After setting new value to
     // bottom navigation, send back value to App component using fragment function of props 
 
     const classes = useStyles();
-    const [fragment, setFragment] = React.useState('shop');
 
-    const handleChange = (event, newValue) => {
-        console.log(newValue)
-        fragmentName(newValue);
-        setFragment(newValue);        
-    };
 
     return (
-        <BottomNavigation value={fragment} onChange={handleChange} className={classes.grow}>
+        <BottomNavigation className={classes.grow}>
             
                 <BottomNavigationAction label="Shop" value="shop" component={Link} to="/" icon={<HomeIcon />} className={classes.iconMargin} />
                 <BottomNavigationAction label="Favorites" value="favorites" component={Link} to="/favourites" icon={<FavoriteIcon />} className={classes.iconMargin} />

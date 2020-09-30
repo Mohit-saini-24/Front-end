@@ -226,9 +226,7 @@ export default function PrimarySearchAppBar() {
               inputProps={{ 'aria-label': 'search' }}
             />
           </div>
-        
-        </Toolbar>
-          
+        </Toolbar>          
       </AppBar>
       {renderMobileMenu}
       {renderMenu}
