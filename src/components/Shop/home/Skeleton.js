@@ -20,10 +20,10 @@ const Media = (props) => {
                                 <Grid key={product._id} item xs={6} sm={6}>
                                     <Box width="100%">
                                         <Link to={{
-                                            pathname: `/Shop/${product.category}/${product.id}`,
+                                            pathname: `/Shop/${product.category}/${product._id}`,
                                             params: {
                                                 category: product.category,
-                                                id: product.id
+                                                id: product._id
                                             }
                                         }}
                                         >

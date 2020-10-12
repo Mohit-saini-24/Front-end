@@ -12,14 +12,14 @@ import Category from './components/Shop/category/Category';
 import Product from './components/Shop/product/Product'
 
 
-import LoginPage from './components/authComponents/Login'
-
 import { authMiddleWare } from './utils/auth'
 
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import axios from 'axios';
 import { withStyles } from '@material-ui/core';
 import CircularProgress from '@material-ui/core/CircularProgress';
+
+import CartPage from './components/Shop/cart/Cart'
 
 const styles = (theme) => ({
     content: {
@@ -76,21 +76,23 @@ class Home extends React.Component {
 
         this.state = {
             uiLoading: true,
-            user: {}
+            phoneNumber:''
         }
     }
 
     componentWillMount = () => {
         console.log(this.props)
         authMiddleWare(this.props.history);
-        const authToken = localStorage.getItem('AuthToken');
-        axios.defaults.headers.common = { Authorization: `${authToken}` };
+        const sessionCookie = localStorage.getItem('sessionCookie');
+        console.log(sessionCookie)
+        axios.defaults.headers.common = { Authorization: `${sessionCookie.toString()}` };
         axios
             .get('/user')
             .then((response) => {
                 console.log(response.data);
+                console.log(response.data.phoneNumber);
                 this.setState({
-                    user: { ...response.data },
+                    phoneNumber: response.data.phoneNumber,
                     uiLoading: false
                 });
             })
@@ -98,7 +100,7 @@ class Home extends React.Component {
                 if (error.response.status === 403) {
                     this.props.history.push('/login');
                 }
-                console.log(error);
+                console.log(error.response);
                 this.setState({ errorMsg: 'Error in retrieving the data' });
             });
     };
@@ -116,7 +118,7 @@ class Home extends React.Component {
             return (
                 <BrowserRouter>
                     <div>
-                        <AppBar />
+                        <AppBar phoneNumber={this.state.phoneNumber} />
                         <Switch>
                             <Route path="/" exact component={Shop} />
                             <Route path="/Favourites" exact component={Favourites} />
@@ -127,7 +129,7 @@ class Home extends React.Component {
                             <Route path="/Shop" exact component={Shop} />
                             <Route path="/Shop/:category" exact component={Category} />
                             <Route path="/Shop/:category/:id" exact component={Product} />
-                            <Route path="/Cart" exact component={Community} />
+                            <Route path="/Cart" exact component={CartPage} />
                             <Route path="/Orders" exact component={Community} />
                             <Route path="/Contact" exact component={Community} />
                             <Route path="/Privacy" exact component={Community} />

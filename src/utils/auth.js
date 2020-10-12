@@ -1,6 +1,7 @@
 export const authMiddleWare = (history) => {
-    const authToken = localStorage.getItem('AuthToken');
-    if(authToken === null){
+    const authToken = localStorage.getItem('sessionCookie');
+    if(!authToken){
         history.push('/login')
+        window.location.reload(false)
     }
 }

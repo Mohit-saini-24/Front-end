@@ -14,6 +14,8 @@ import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 
+import { Link } from 'react-router-dom';
+
 import Drawer from './Drawer';
 
 const useStyles = makeStyles((theme) => ({
@@ -80,7 +82,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function PrimarySearchAppBar() {
+const PrimarySearchAppBar = (props) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -105,6 +107,14 @@ export default function PrimarySearchAppBar() {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
+  const handleLogout = () => {
+    localStorage.clear();
+    // handleMobileMenuClose();
+    console.log(props)
+    // props.history.push('/login')
+
+  }
+
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
     <Menu
@@ -118,6 +128,9 @@ export default function PrimarySearchAppBar() {
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={handleLogout}>
+        <a href='/login'>Logout</a>
+        </MenuItem>
     </Menu>
   );
 
@@ -164,15 +177,15 @@ export default function PrimarySearchAppBar() {
 
   return (
     <div className={classes.grow}>
-      <AppBar position="static" style={{backgroundColor:'blue'}}>
-        <Toolbar style={{position:"sticky"}}>
+      <AppBar position="static" style={{ backgroundColor: 'blue' }}>
+        <Toolbar style={{ position: "sticky" }}>
           <IconButton
             edge="start"
             className={classes.menuButton}
             color="inherit"
             aria-label="open drawer"
           >
-            <Drawer />
+            <Drawer phoneNumber={props.phoneNumber} />
           </IconButton>
           <Typography className={classes.title} variant="h6" noWrap>
             React App
@@ -213,7 +226,7 @@ export default function PrimarySearchAppBar() {
           </div>
         </Toolbar>
         <Toolbar >
-        <div className={classes.search}>
+          <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
             </div>
@@ -226,10 +239,11 @@ export default function PrimarySearchAppBar() {
               inputProps={{ 'aria-label': 'search' }}
             />
           </div>
-        </Toolbar>          
+        </Toolbar>
       </AppBar>
       {renderMobileMenu}
       {renderMenu}
     </div>
   );
 }
+export default PrimarySearchAppBar

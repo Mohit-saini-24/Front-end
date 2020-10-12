@@ -6,6 +6,8 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import Skeleton from '@material-ui/lab/Skeleton';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { Link } from 'react-router-dom'
+
 
 import {
     Box,
@@ -21,6 +23,8 @@ import {
 } from '@material-ui/core';
 import axios from 'axios';
 
+
+// edit link on this page line 68
 const useStyles = makeStyles((theme) => ({
     root: {
         width: '100%',
@@ -53,6 +57,8 @@ const ProductPage = (props) => {
 
     const [newProduct, setnewProduct] = useState([])
     const [varientPrice, setVarientPrice] = useState(0)
+    const [varientName, setVarientName] = useState('')
+    const [addedToCart, setAddedToCart] = useState(false)
     // const [selectedColor, setselectedColor] = useState('')
     const ref = useRef()
 
@@ -60,9 +66,14 @@ const ProductPage = (props) => {
     useEffect(() => {
         const fetch = async () => {
             const { data } = await axios
-                .get(`https://reactbackendserver.web.app/shop/${props.location.params.category}/${props.location.params.id}`)
-            setnewProduct(data);
-            setVarientPrice(data[0].varients[0].discountPrice)
+                .get(`http://localhost:5000/shop/${props.location.params.category}/${props.location.params.id}`)
+            setnewProduct(data.query);
+
+            if (data.temp.length) {
+                setAddedToCart(true)
+            }
+            setVarientPrice(data.query[0].varients[0].discountPrice)
+            setVarientName(data.query[0].varients[0].varientName)
         };
         fetch();
     }, [])
@@ -70,9 +81,26 @@ const ProductPage = (props) => {
     const changeVarientPrice = (event) => {
         var temp = newProduct[0].varients.filter(varient => varient.varientName === event.target.textContent)
         setVarientPrice(temp[0].discountPrice)
-        
+        setVarientName(temp[0].varientName)
     }
     const classes = useStyles();
+
+    const handleAddClick = () => {
+        var id = newProduct[0]._id
+        // setAddedToCart(true)
+        console.log(id)
+
+        axios.post(`http://localhost:5000/shop/add/${id}/${varientName}`)
+            .then((response) => {
+                console.log(response.data)
+                setAddedToCart(true)
+            }
+            ).catch(err => {
+                console.log(err)
+            })
+    }
+
+    
 
     return (
         <div ref={ref} className={classes.root}>
@@ -124,9 +152,17 @@ const ProductPage = (props) => {
                             })}
                         </div>
                     </div>
-                    <div className={classes.section3}>
-                        <Button color="primary">Add to cart</Button>
-                    </div>
+                    { addedToCart ? (
+                        <div className={classes.section3}>
+                            <Link to={{
+                                pathname: `/Cart`,
+                            }} color="primary" >Go to cart</Link>
+                        </div>
+                    ) : (
+                            <div className={classes.section3}>
+                                <Button color="primary" onClick={handleAddClick} >Add To Cart</Button>
+                            </div>
+                        )}
                 </>
             ) : (
                     <>

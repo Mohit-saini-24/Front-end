@@ -28,12 +28,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SwipeableTemporaryDrawer() {
+export default function SwipeableTemporaryDrawer( props ) {
   const classes = useStyles();
   const [state, setState] = React.useState({
     left: false
   });
-
+  console.log('drawerrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr')
+  console.log(props)
   const toggleDrawer = (anchor, open) => (event) => {
     if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
@@ -55,6 +56,11 @@ export default function SwipeableTemporaryDrawer() {
         <ListItem>
           <ListItemAvatar>
             <Avatar className={classes.large} alt="Apna Kisan" src="/" />
+          </ListItemAvatar>
+        </ListItem>
+        <ListItem>
+          <ListItemAvatar>
+           {props.phoneNumber}
           </ListItemAvatar>
         </ListItem>
         {['Home', 'Orders', 'Shop', 'Blog', 'Cart'].map((text, index) => (
